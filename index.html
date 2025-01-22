@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<body bgcolor="pink">
+    <center>
+    <h1>BMI Calculator</h1>
+    <form>
+        <table cellspacing="10">
+            <tr>
+                <div>
+                    <td><label for="weight">Weight</label></td>
+                    <td><input type="Number" name="weight" id="weight" required></td>
+                    <td><select type="text" name="Wunit" id="Wunit" required>
+                        <option value="pounds">pounds</option>
+                        <option value="kg">kg</option>
+                      </select></td>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                <td><label for="height">Height</label></td>
+                <td><input type="Number" name="height" id="height" required></td>
+                <td><select type="text" name="Hunit" id="Hunit" required>
+                    <option value="inches">inches</option>
+                    <option value="cm">cm</option>
+                </select></td>
+                </div>
+            </tr>
+        </table>
+        <br> 
+        <div>
+            <button type="button" onclick="calculate()">Calculate</button>
+            <button type="reset">Clear</button>
+        </div>
+        <br>
+        <table cellspacing="10">
+            <tr>
+                <div>
+                    <td><label for="result">Result</label></td>
+                    <td><input type="Number" name="result" id="result" readonly></td>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                    <td><label for="Description">Description</label></td>
+                    <td><input type="text" name="Description" id="Description"></td>
+                </div>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function calculate(){
+        let Weight=Number(document.getElementById("weight").value);
+        let Height=Number(document.getElementById("height").value);
+        var wunit=document.getElementById("Wunit").value;
+        var hunit=document.getElementById("Hunit").value;
+        let Res,des;
+        if(wunit=="pounds" && hunit=="inches"){
+            Weight=Weight*0.453592;//kg
+            Height=Height*0.0254;//m
+        }
+        else if(wunit=="kg" && hunit=="cm"){
+            Height=Height*0.01;//m
+        }
+        else if(wunit=="pounds" && hunit=="cm"){
+            Weight=Weight*0.453592;//kg
+            Height=Height*0.01;//m
+        }
+        else{
+            Height=Height*0.0254;//m
+        }
+        Res=Weight/(Height*Height);
+        if(Res<18.5)
+        {
+            des="You are Under weight";
+        }
+        else if(Res>=18.5 && Res<=24.9){
+            des="You are Normal";
+        }
+        else if(Res>=25 && Res<=29.9){
+            des="You are Over weight";
+        }
+        else{
+            des="Obesity";
+        }
+        document.getElementById("result").value=Res.toFixed(2);
+        document.getElementById("Description").value=des;
+        } 
+    </script>
+</center>
+</body>
+</html>
